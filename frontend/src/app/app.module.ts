@@ -3,14 +3,20 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { StopSelectorComponent } from './stop-selector/stop-selector.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ColorIndicatorComponent } from './color-indicator/color-indicator.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StopSelectorComponent,
+    ColorIndicatorComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

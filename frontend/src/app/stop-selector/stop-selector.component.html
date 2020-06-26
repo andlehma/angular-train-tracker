@@ -1,0 +1,28 @@
+<header>
+    <h2>Next 'L' services at</h2>
+    <div id="dropdown">
+        <button id="toggle-dropdown"
+                (click)="toggleDropdown()">
+            <h2>
+                {{currentStop.stop_name}}
+                <app-color-indicator [colors]="currentStop.station_lines">
+                </app-color-indicator>
+            </h2>
+            <fa-icon [icon]="faCaretDown"></fa-icon>
+        </button>
+        <div id="inner-dropdown"
+             *ngIf="showDropdown">
+            <input type="text"
+                   (keyup)="searchStops($event)"
+                   paceholder="Search"
+                   autofocus>
+            <div class="stop-option"
+                 *ngFor="let stop of stops"
+                 (click)="this.currentStopChange.emit(stop)">
+                {{stop.stop_name}}
+                <app-color-indicator [colors]="stop.station_lines">
+                </app-color-indicator>
+            </div>
+        </div>
+    </div>
+</header>

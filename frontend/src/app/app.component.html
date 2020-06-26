@@ -1,2 +1,4 @@
-<p *ngIf="!etas">loading...</p>
+<app-stop-selector [currentStop]="currentStop"
+                   (currentStopChange)="changeStop($event)"></app-stop-selector>
+<p *ngIf="etas.length === 0">loading...</p>
 <p *ngFor="let eta of etas">{{eta.rn}}</p>
