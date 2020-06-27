@@ -1,0 +1,15 @@
+<div class="eta-card">
+    <span class="eta-card-number">
+        {{number}}
+    </span>
+    <span class="eta-card-main"
+          [ngStyle]="{'background-color': colorsTable[eta.rt]}">
+        <span>
+            <h2>{{trainName}}</h2>
+            <h1>{{eta.destNm}}</h1>
+        </span>
+        <span class="mins-until-arrival">
+            {{eta.minsUntilArrival}} min
+        </span>
+    </span>
+</div>

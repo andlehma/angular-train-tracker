@@ -1,4 +1,7 @@
 <app-stop-selector [currentStop]="currentStop"
                    (currentStopChange)="changeStop($event)"></app-stop-selector>
 <p *ngIf="etas.length === 0">loading...</p>
-<p *ngFor="let eta of etas">{{eta.rn}}</p>
+<app-eta-card *ngFor="let eta of etas; index as i"
+              [eta]="eta"
+              [number]="i + 1">
+</app-eta-card>
