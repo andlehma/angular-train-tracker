@@ -11,14 +11,13 @@
             <fa-icon [icon]="faCaretDown"></fa-icon>
         </button>
         <div id="inner-dropdown"
-             *ngIf="showDropdown">
+             [hidden]="!showDropdown">
             <input type="text"
                    (keyup)="searchStops($event)"
-                   paceholder="Search"
-                   autofocus>
+                   placeholder="Search">
             <div class="stop-option"
                  *ngFor="let stop of stops"
-                 (click)="this.currentStopChange.emit(stop)">
+                 (click)="this.currentStopChange.emit(stop); this.toggleDropdown()">
                 {{stop.stop_name}}
                 <app-color-indicator [colors]="stop.station_lines">
                 </app-color-indicator>
