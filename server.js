@@ -12,7 +12,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(express.static('frontend/dist'));
+app.use(express.static('frontend/dist/angular-train-tracker'));
 
 // serve frontend
 app.get('/', (req, res) => {

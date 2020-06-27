@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { TrainDataService } from './train-data.service';
 import { Stop, Eta } from "./model";
 import { TimeDataService } from './time-data.service';
+import { timer, Subscription } from 'rxjs';
+import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -24,23 +26,24 @@ export class AppComponent {
       "Pink",
       "Org"
     ]
-  }
+  };
+  timeSubscription: Subscription;
+  trainSubscription: Subscription;
 
   changeStop(stop) {
     this.currentStop = stop;
-    this.queryTrainApi();
+    this.trainService.sendGetRequest(this.currentStop.stop_id).subscribe((data: any) => {
+      this.handleCtatt(data.ctatt);
+    });
   }
 
-  queryTrainApi() {
-    this.etas = [];
-    this.trainService.sendGetRequest(this.currentStop.stop_id).subscribe((data: any) => {
-      console.log(data.ctatt);
-      if (data.ctatt.eta) {
-        this.etas = data.ctatt.eta;
-        this.calculateMinsUntilArrival();
-        this.deleteOldTrains();
-      }
-    });
+  handleCtatt(ctatt) {
+    console.log(ctatt);
+    if (ctatt.eta) {
+      this.etas = ctatt.eta;
+      this.calculateMinsUntilArrival();
+      this.deleteOldTrains();
+    }
   }
 
   queryTimeApi() {
@@ -73,15 +76,26 @@ export class AppComponent {
     for (let i = 0; i < this.etas.length; i++) {
       if (this.etas[i].msUntilArrival > -10000)
         newEtas.push(this.etas[i]);
-      this.etas = newEtas;
     }
+    this.etas = newEtas;
   }
 
   constructor(private trainService: TrainDataService,
     private timeService: TimeDataService) { }
 
   ngOnInit() {
-    this.queryTrainApi();
-    this.queryTimeApi();
+    this.timeSubscription = timer(0, 5 * 1000).pipe(
+      switchMap(() => this.timeService.sendGetRequest())
+    ).subscribe((result: any) => {
+      const chicagoTime = Date.parse(result.datetime.substring(0, 26));
+      this.time = chicagoTime;
+      this.calculateMinsUntilArrival();
+      this.deleteOldTrains();
+    });
+    this.trainSubscription = timer(0, 5 * 60 * 1000).pipe(
+      switchMap(() => this.trainService.sendGetRequest(this.currentStop.stop_id))
+    ).subscribe((result: any) => {
+      this.handleCtatt(result.ctatt);
+    });
   }
 }
