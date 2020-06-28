@@ -78,3 +78,9 @@ header h2 {
 .color-indicator span {
     width: 100%;
 }
+
+ @media only screen and (max-width: 1080px) {
+    #dropdown {
+        width: 97vw;
+    }
+ } 

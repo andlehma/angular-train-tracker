@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "train-tracker-76453": {
+      "hosting": {
+        "angular-train-tracker": [
+          "train-tracker-76453"
+        ]
+      }
+    }
+  }
+}

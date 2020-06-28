@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TrainDataService {
-  private ENDPOINT = "http://localhost:3000/api/";
+  private ENDPOINT = "https://andrewlehman.me/traintracker/api/";
   constructor(private httpClient: HttpClient) { }
   public sendGetRequest(stop) {
     return this.httpClient.get(this.ENDPOINT + stop);

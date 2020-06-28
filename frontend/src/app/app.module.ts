@@ -7,6 +7,8 @@ import { StopSelectorComponent } from './stop-selector/stop-selector.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ColorIndicatorComponent } from './color-indicator/color-indicator.component';
 import { EtaCardComponent } from './eta-card/eta-card.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { EtaCardComponent } from './eta-card/eta-card.component';
     BrowserModule,
     HttpClientModule,
     FontAwesomeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
